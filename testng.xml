@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="  regression test"><!-- -->
-	<parameter name="browser" value="headless"></parameter>
+	<parameter name="browser" value="chrome-headless"></parameter>
 	<test name="Regression test" preserve-order="true" />
 	<test name="Test">
 		<classes>
