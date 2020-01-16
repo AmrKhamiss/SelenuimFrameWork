@@ -9,7 +9,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -66,7 +69,15 @@ public class TestBase extends AbstractTestNGCucumberTests
 		else if (browserName.equalsIgnoreCase("IE")) {
 			System.setProperty("webdriver.ie.driver", System.getProperty("user.dir")+"/driverss/IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
-
+		}
+		else if (browserName.equalsIgnoreCase("headless")) 
+		{
+			DesiredCapabilities caps = new DesiredCapabilities();
+			caps.setJavascriptEnabled(true);
+			caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, System.getProperty("user.dir")+"/driverss/phantomjs.exe");
+			String [] phantomJsDriver = {"--web-secuirity=no","--igonre-ssl--errors=yes"};
+			caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, phantomJsDriver);
+			driver = new PhantomJSDriver(caps);
 		}
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
